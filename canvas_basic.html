@@ -26,6 +26,19 @@
       <h1>Canvas Basic</h1>
       <canvas id="sketch" width="300" height="300"></canvas>
     </div>
-    <script></script>
+    <script>
+      var canvas = document.getElementById('sketch');
+      var context = canvas.getContext('2d');
+      var i,j,r,g,b;
+      for(i=0;i<5;i++){
+        for(j=0;j<5;j++){
+          r = Math.floor(0x0F * Math.random());
+          g = Math.floor(0x0F * Math.random());
+          b = Math.floor(0x0F * Math.random());
+          context.fillStyle = '#' + r.toString(16) + g.toString(16) + b.toString(16);
+          context.fillRect(i*60,j*60,60,60);
+        }
+      }
+    </script>
   </body>
 </html>
