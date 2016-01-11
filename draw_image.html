@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>Canvas Basic</title>
+    <style>
+      html{
+        height:100%;
+        width: 100%;
+        background: rgba(200,100,100,1.0);
+      }
+      body{
+        height: 100%;
+        width: 100%;
+        margin: 0;
+      }
+      div.main{
+        width:300px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      #cat{
+        display:none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main">
+      <h1>Canvas Basic</h1>
+      <canvas id="sketch" width="1024" height="768"></canvas>
+      <img id='cat' src="Penguins.jpg">
+    </div>
+    <script>
+      window.addEventListener('load',function(event){
+        var canvas = document.getElementById('sketch');
+        var context = canvas.getContext('2d');
+        var cat = document.getElementById('cat');
+        context.fillStyle = 'rgba(50,50,50,1)';
+        context.fillRect(0,0,canvas.width,canvas.height);
+        context.drawImage(cat,0,0);
+      });
+    </script>
+  </body>
+</html>
