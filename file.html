@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>File</title>
+    <style>
+      html{
+        height:100%;
+        width: 100%;
+        background: rgba(200,100,100,1.0);
+      }
+      body{
+        height: 100%;
+        width: 100%;
+        margin: 0;
+      }
+      div.main{
+        width:300px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main">
+      <h1>File</h1>
+      <canvas id="sketch" width="300" height="300"></canvas>
+      <input type="file" id="files" multiple></input>
+    </div>
+    <script>
+      var canvas = document.getElementById("sketch");
+      var context = canvas.getContext("2d");
+
+      context.fillStyle = "rgba(50,50,50,1)";
+      context.fillRect(0,0,canvas.width,canvas.height);
+
+      var input = document.getElementById("files");
+      input.addEventListener('change',function(event){
+        for(var i = 0;i < input.files.length;i++){
+          console.log(input.files[i]);
+        }
+      });
+    </script>
+  </body>
+</html>
