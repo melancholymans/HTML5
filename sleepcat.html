@@ -29,13 +29,20 @@
     <script>
       var canvas = document.getElementById("sketch");
       var context = canvas.getContext("2d");
+      var a,r;
 
-      context.fillStyle = "rgba(0,0,0,0.8)";
+      context.fillStyle = "rgba(0,0,0,0.3)";
       context.fillRect(0,0,canvas.width,canvas.height);
-
-      context.beginPath();
-      context.arc(100,100,50,0,2*Math.PI);
-      context.fill()
+      for(var i = 0;i < 12;i++){
+        a = i * 2*Math.PI/12;
+        r = canvas.width*0.4;
+        context.fillStyle = "rgba(0,150,0,0.5)";
+        context.beginPath();
+        context.arc(
+          canvas.width/2 + r*Math.cos(a),
+          canvas.height/2 + r*Math.sin(a),30,0,2*Math.PI);
+        context.fill();
+    }
     </script>
   </body>
 </html>
