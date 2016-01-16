@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>File</title>
+    <style>
+      html{
+        height:100%;
+        width: 100%;
+        background: rgba(200,100,100,1.0);
+      }
+      body{
+        height: 100%;
+        width: 100%;
+        margin: 0;
+      }
+      div.main{
+        width:300px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main">
+      <h1>File</h1>
+      <input type="file" id="files" multiple></input>
+      <output id = "progress"></output>
+    </div>
+    <script>
+      var input = document.getElementById('files');
+      var output = document.getElementById('progress');
+      input.addEventListener('change',function(event){
+        partiaRead(input.files[0],0,0);
+        function partiaRead(file,offset,total)
+        {
+          console.log("offset ",offset);
+          console.log("total ",total);
+          var blob = file.slice(offset,offset + 512*1024);
+          var reader = new FileReader();
+          reader.readAsText(blob);
+          reader.addEventListener('load',function(event){
+            for(var i = 0;i < reader.result.length;i++){
+                console.log("i ",i);
+                console.log("total ",total);
+                total += parseInt(reader.result[i],10);
+            }
+            if(offset < file.size){
+              output.innerHTML = Math.floor(100*offset/file.size) + "%";
+              partiaRead(file,offset + blob.size,total);
+            }
+            else{
+              output.innerHTML = 'finished';
+              console.log("finished",total);
+            }
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

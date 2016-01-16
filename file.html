@@ -36,8 +36,23 @@
 
       var input = document.getElementById("files");
       input.addEventListener('change',function(event){
+        var reader;
         for(var i = 0;i < input.files.length;i++){
-          console.log(input.files[i]);
+          reader = new FileReader();
+          if(input.files[i].type.match('text/.*')){
+            reader.readAsText(input.files[i]);
+            reader.addEventListener('load',function(event){
+              console.log(reader.result);
+            });
+          }
+          else if(input.files[i].type.match("image/.*")){
+            reader.readAsDataURL(input.files[i]);
+            reader.addEventListener("load",function(event){
+              var image = new Image();
+              image.src = reader.result;
+              context.drawImage(image,0,0,image.width,image.height);
+            });
+          }
         }
       });
     </script>
