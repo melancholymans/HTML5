@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>File</title>
+    <style>
+      html{
+        height:100%;
+        width: 100%;
+        background-image: url(Penguins.jpg);
+      }
+      body{
+        height: 100%;
+        width: 100%;
+        margin: 0;
+      }
+      div.main{
+        width:500px;
+        margin-top: 30px
+        margin-left: auto;
+        margin-right: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main">
+      <canvas id="sketch" width="500" height="500"></canvas>
+    </div>
+    <script>
+      var canvas = document.getElementById("sketch");
+      var context = canvas.getContext("2d");
+      var x,y;
+      context.fillStyle = "rgba(0,0,0,0.3)";
+      context.fillRect(0,0,canvas.width,canvas.height);
+
+      x=10;y=10;
+      context.strokeStyle='rgba(150,150,150,1)';
+      context.beginPath();
+      context.moveTo(x,y);
+      for(var i = 0;i < 80;i++){
+        if(i % 2 == 0){
+          x += 10;
+        }
+        else{
+          y += 10;
+        }
+        context.lineTo(x,y);
+      }
+      context.stroke();
+    </script>
+  </body>
+</html>
