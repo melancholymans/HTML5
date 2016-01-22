@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>Animation</title>
+    <style>
+      html{
+        height:100%;
+        width: 100%;
+        background-image: linear-gradient(#434343,#282828);;
+      }
+      body{
+        height: 100%;
+        width: 100%;
+        margin: 0;
+      }
+      div.main{
+        width:500px;
+        margin-top: 80px
+        margin-left: auto;
+        margin-right: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main">
+      <canvas id="sketch" width="500" height="500"></canvas>
+    </div>
+    <script>
+      var canvas = document.getElementById("sketch");
+      var context = canvas.getContext("2d");
+      var start = null;
+
+      window.requestAnimationFrame(function draw(timestamp){
+          var t;
+          if(!start){
+            start = timestamp;
+          }
+          t = (timestamp - start)/1000;
+          context.setTransform(1,0,0,1,0,0);
+          context.clearRect(0,0,canvas.width,canvas.height);
+          context.translate(canvas.width/2,canvas.height/2);
+          context.rotate(t);
+          context.scale(0.5*Math.cos(t)+2,0.5*Math.cos(t)+2);
+          context.translate(-50,-50);
+          context.fillStyle = 'white';
+          context.fillRect(0,0,100,100);
+
+          window.requestAnimationFrame(draw);
+      });
+    </script>
+  </body>
+</html>
