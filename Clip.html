@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>File</title>
+    <style>
+      html{
+        height:100%;
+        width: 100%;
+        background-image: url(Penguins.jpg);
+      }
+      body{
+        height: 100%;
+        width: 100%;
+        margin: 0;
+      }
+      div.main{
+        width:500px;
+        margin-top: 30px
+        margin-left: auto;
+        margin-right: auto;
+      }
+      #cat{
+        display:none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main">
+      <canvas id="sketch" width="500" height="500"></canvas>
+      <img id="cat" src="Chrysanthemum.jpg">
+    </div>
+    <script>
+      window.addEventListener("load",function(event){
+        var N = 8;
+        var RADIUS = 200;
+        var canvas = document.getElementById("sketch");
+        var context = canvas.getContext("2d");
+        var chrysanthemum = document.getElementById('cat');
+        context.clearRect(0,0,canvas.width,canvas.height);
+        context.fillStyle = 'gray'
+        context.beginPath();
+        context.moveTo(
+          RADIUS*Math.cos(0) + canvas.width/2,
+          RADIUS*Math.sin(0) + canvas.height/2);
+        for(var i = 0;i < N;i++){
+          context.lineTo(
+            RADIUS*Math.cos((i + 1) * 2 * Math.PI / N) + canvas.width/2,
+            RADIUS*Math.sin((i + 1) * 2 * Math.PI / N) + canvas.height/2
+          )
+        }
+        context.clip();
+        context.drawImage(chrysanthemum,0,0,canvas.width,canvas.height);
+      });
+    </script>
+  </body>
+</html>
