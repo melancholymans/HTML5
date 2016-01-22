@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>Animation</title>
+    <style>
+      html{
+        height:100%;
+        width: 100%;
+        background-image: linear-gradient(#434343,#282828);;
+      }
+      body{
+        height: 100%;
+        width: 100%;
+        margin: 0;
+      }
+      div.main{
+        width:500px;
+        margin-top: 80px
+        margin-left: auto;
+        margin-right: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main">
+      <canvas id="sketch" width="500" height="500"></canvas>
+    </div>
+    <script>
+      var canvas = document.getElementById("sketch");
+      var context = canvas.getContext("2d");
+      var start = null;
+      var RECT = 100;
+      var NUM_RECT = 500;
+      var rests = [];
+
+      for(var i = 0;i < NUM_RECT;i++){
+        rests.push({
+          x:RECT * Math.random(),
+          y:RECT * Math.random(),
+          vx:Math.random() - 0.5,
+          vy:Math.random() - 0.5,
+          p:2 * Math.PI*Math.random(),
+          c:randomColor()
+        });
+      }
+      window.requestAnimationFrame(function draw(timestamp){
+          var t;
+          if(!start){
+            start = timestamp;
+          }
+          t = (timestamp - start)/1000;
+          context.setTransform(1,0,0,1,0,0);
+          context.clearRect(0,0,canvas.width,canvas.height);
+          context.translate(canvas.width/2,canvas.height/2);
+          context.scale(0.5*Math.cos(t)+2,0.5*Math.cos(t)+2);
+
+          context.translate(-RECT/2,-RECT/2);
+          context.fillStyle = 'white';
+          context.fillRect(0,0,RECT,RECT);
+
+          rests.forEach(function(rect){
+            context.save();
+            rect.x += rect.vx;
+            rect.y += rect.vy;
+            if(rect.x < 0 || RECT <= rect.x){
+              rect.vx *= -1;
+            }
+            if(rect.y < 0 || RECT <= rect.y){
+              rect.vy *= -1;
+            }
+            context.fillStyle = rect.c;
+            context.translate(rect.x,rect.y);
+            context.rotate(rect.p + t);
+            context.translate(-1.5,-1.5);
+            context.fillRect(0,0,3,3);
+            context.restore();
+          });
+          window.requestAnimationFrame(draw);
+      });
+      function randomColor(){
+        var r = Math.floor(255*Math.random());
+        var g = Math.floor(255*Math.random());
+        var b = Math.floor(255*Math.random());
+        return 'rgba('+r+','+g+','+b+','+'1)';
+    }
+    </script>
+  </body>
+</html>
