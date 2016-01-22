@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>File</title>
+    <style>
+      html{
+        height:100%;
+        width: 100%;
+        background-image: url(Penguins.jpg);
+      }
+      body{
+        height: 100%;
+        width: 100%;
+        margin: 0;
+      }
+      div.main{
+        width:500px;
+        margin-top: 30px
+        margin-left: auto;
+        margin-right: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main">
+      <canvas id="sketch" width="500" height="500"></canvas>
+    </div>
+    <script>
+      var canvas = document.getElementById("sketch");
+      var context = canvas.getContext("2d");
+      var RADIUS = 5;
+      var points = [
+        {x:10,y:10},
+        {x:200,y:10},
+        {x:200,y:200},
+        {x:10,y:200}
+      ];
+      var moving = null;
+      draw(points);
+      canvas.addEventListener('mousedown',function(){
+        var p = {x:event.offsetX,y:event.offsetY};
+        for(var i = 0;i < points.length;i++){
+          if(distance(points[i],p) < RADIUS){
+            moving = i;
+            points[i] = p;
+            draw(points);
+            break;
+          }
+        }
+      });
+      canvas.addEventListener("mousemove",function(event){
+        if(moving != null){
+          points[moving] = {x:event.offsetX,y:event.offsetY};
+          draw(points);
+        }
+      });
+      canvas.addEventListener("mouseup",function(event){
+        if(moving != null){
+          moving = null;
+        }
+      });
+      function draw(points){
+        var colors = ['red','blue','blue','red'];
+        context.clearRect(0,0,canvas.width,canvas.height);
+        context.strokeStyle = 'rgba(150,150,150,1)';
+        context.beginPath();
+        context.moveTo(points[0].x,points[0].y);
+        context.bezierCurveTo(
+          points[1].x,points[1].y,
+          points[2].x,points[2].y,
+          points[3].x,points[3].y
+        );
+        context.stroke();
+        for(var i = 0;i < points.length;i++){
+          console.log(colors[i]);
+          context.fillstkle = colors[i];
+          context.beginPath();
+          context.arc(points[i].x,points[i].y,RADIUS,0,2*Math.PI);
+          context.fill();
+        }
+      }
+
+      function distance(p1,p2){
+        return Math.sqrt((p1.x - p2.x)*(p1.x - p2.x) + (p1.y - p2.y)*(p1.y - p2.y));
+      }
+      context.fillStyle = "rgba(0,0,0,0.3)";
+      context.fillRect(0,0,canvas.width,canvas.height);
+
+    </script>
+  </body>
+</html>
