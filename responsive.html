@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>File</title>
+    <style>
+      html{
+        height:100%;
+        width: 100%;
+        background: rgba(200,200,200,1.0);
+      }
+      body{
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="sketch" ></canvas>
+    <script>
+      var canvas = document.getElementById("sketch");
+      var context = canvas.getContext("2d");
+
+      refresh(window.innerWidth,window.innerHeight);
+      window.addEventListener('resize',function(event){
+        refresh(window.innerWidth,window.innerHeight);
+      });
+      function refresh(width,height){
+        canvas.width = width;
+        canvas.height = height;
+        context.lineWidth = 15;
+        context.fillStyle = "rgba(200,50,50,0.5)";
+        context.strokeStyle = 'rgba(200,50,50,1)'
+        context.arc(
+          canvas.width/2,
+          canvas.height/2,
+          canvas.height/2,
+          0,2*Math.PI);
+        context.fill();
+        context.stroke();
+      }
+    </script>
+  </body>
+</html>
