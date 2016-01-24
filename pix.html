@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>File</title>
+    <style>
+      html{
+        height:100%;
+        width: 100%;
+        background-image: linear-gradient(#434343,#282828);
+      }
+      body{
+        height: 100%;
+        width: 100%;
+        margin: 0;
+      }
+      div.main{
+        width: 300px;
+        margin-left:: auto;
+        margin-right: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main">
+      <canvas id="sketch" width = "500" height = "500"></canvas>
+    </div>
+    <script>
+      var canvas = document.getElementById("sketch");
+      var context = canvas.getContext("2d");
+
+      window.requestAnimationFrame(function draw(timestamp){
+        var t;
+        var x,y,i;
+        var image = context.createImageData(canvas.width,canvas.height);
+        for(y = 0;y < image.height;y++){
+          for(x = 0;x < image.height;x++){
+            i = Math.floor(255 * Math.random());
+            image.data[4 * y * image.width + 4 * x + 0] = i;
+            image.data[4 * y * image.width + 4 * x + 1] = i;
+            image.data[4 * y * image.width + 4 * x + 2] = i;
+            image.data[4 * y * image.width + 4 * x + 3] = 255;
+          }
+        }
+        context.putImageData(image,0,0);
+        window.requestAnimationFrame(draw);
+      });
+
+    </script>
+  </body>
+</html>
