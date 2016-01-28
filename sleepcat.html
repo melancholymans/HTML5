@@ -2,47 +2,23 @@
 <html lang="ja">
   <head>
     <meta charset="utf-8">
-    <title>File</title>
+    <title>Enjoy HTML5</title>
     <style>
       html{
         height:100%;
         width: 100%;
-        background-image: url(Penguins.jpg);
+        background: rgba(200,200,200,1.0);
       }
       body{
         height: 100%;
-        width: 100%;
         margin: 0;
-      }
-      div.main{
-        width:500px;
-        margin-top: 30px
-        margin-left: auto;
-        margin-right: auto;
       }
     </style>
   </head>
   <body>
-    <div class="main">
-      <canvas id="sketch" width="500" height="500"></canvas>
-    </div>
+    <h1>Enjoy HTML5</h1>
     <script>
-      var canvas = document.getElementById("sketch");
-      var context = canvas.getContext("2d");
-      var a,r;
-
-      context.fillStyle = "rgba(0,0,0,0.3)";
-      context.fillRect(0,0,canvas.width,canvas.height);
-      for(var i = 0;i < 12;i++){
-        a = i * 2*Math.PI/12;
-        r = canvas.width*0.4;
-        context.fillStyle = "rgba(0,150,0,0.5)";
-        context.beginPath();
-        context.arc(
-          canvas.width/2 + r*Math.cos(a),
-          canvas.height/2 + r*Math.sin(a),30,0,2*Math.PI);
-        context.fill();
-    }
+      console.log('Hello world');
     </script>
   </body>
 </html>
